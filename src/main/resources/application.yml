@@ -1,0 +1,75 @@
+server:
+  port: 8887
+  servlet:
+    context-path: /
+#mybatis
+mybatis:
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.wechat.transfer.entity
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  not-empty: true
+  style: camelhump
+  wrap-keyword: "`{0}`"
+  safe-delete: true
+  safe-update: true
+  identity: MYSQL
+
+#配置多个数据源属性
+spring:
+  datasource:
+    #mysql主数据源，可关联mybatis
+    mysql:
+      type: com.alibaba.druid.pool.DruidDataSource
+      url:  jdbc:mysql://simple:3306/wechat?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=true&rewriteBatchedStatements=true
+      username: root
+      password: jzynmb0599
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    #hive数据源
+    hive:
+      url: jdbc:hive2://simple:10000/wechat
+      type: com.alibaba.druid.pool.DruidDataSource
+      username: root
+      password: jzynmb0599
+      driver-class-name: org.apache.hive.jdbc.HiveDriver
+    #连接池统一配置，应用到所有的数据源
+    commonConfig:
+      initialSize: 1
+      minIdle: 1
+      maxIdle: 5
+      maxActive: 50
+      maxWait: 10000
+      timeBetweenEvictionRunsMillis: 10000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      filters: stat
+  redis:
+    # 连接超时时间（记得添加单位，Duration）
+    timeout: 10000ms
+    # Redis默认情况下有16个分片，这里配置具体使用的分片
+    # database: 0
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1ms
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
+    cache:
+      # 一般来说是不用配置的，Spring Cache 会根据依赖的包自行装配
+      type: redis
+logging:
+  level:
+    com.wechat.transfer: info
