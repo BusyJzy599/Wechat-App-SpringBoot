@@ -1,5 +1,14 @@
 server:
-  port: 8887
+  ssl:
+    # 证书路径
+    key-store: C:\Users\14110\server.keystore
+    key-alias: tomcat
+    enabled: true
+    key-store-type: JKS
+    #与申请时输入一致
+    key-store-password: jzynmb0599
+  # 浏览器默认端口 和 80 类似
+  port: 444
   servlet:
     context-path: /
 #mybatis
