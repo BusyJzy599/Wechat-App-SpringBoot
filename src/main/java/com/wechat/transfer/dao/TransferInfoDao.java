@@ -1,6 +1,7 @@
 package com.wechat.transfer.dao;
 
 import com.wechat.transfer.dao.lmpl.HiveJdbcDaoImpl;
+import com.wechat.transfer.entity.HdfsPath;
 import com.wechat.transfer.entity.WareHouse;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class TransferInfoDao extends HiveJdbcDaoImpl {
@@ -229,5 +233,28 @@ public class TransferInfoDao extends HiveJdbcDaoImpl {
         }
         return map;
     }
+
+    public void uploadFileData() throws IOException {
+        FileWriter fileWriter = new FileWriter("D:/filesOut.txt");//创建文本文件
+        String sql = "truncate table file_data";
+        this.getJdbcTemplate().execute(sql);
+        sql = "load data inpath '/cloud/demo/files.txt' into table file_data";
+        this.getJdbcTemplate().execute(sql);
+        sql = "select type,sum(size)as total,count(*)as file_num from file_data group by type order by total desc ";
+        List<Map<String, Object>> maps = this.getJdbcTemplate().queryForList(sql);
+        fileWriter.write("各类文件信息:\r\n");
+        fileWriter.write("排名" + "\t" + "类型" + "\t" + "总大小" + "\t" + "文件数量\r\n");
+        int num = 0;
+        for(int i=0;i<maps.size();i++){
+            Map<String, Object> v = maps.get(i);
+            fileWriter.write((i+1)+"\t" + v.get("type") + "\t" + v.get("total") + "\t" + v.get("file_num")+"\r\n");
+            num+=Integer.parseInt(v.get("file_num").toString());
+        }
+        fileWriter.write("文件总数:" + num+"\r\n");
+        fileWriter.write("文件类型数:" + maps.size()+"\r\n");
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
 }
 

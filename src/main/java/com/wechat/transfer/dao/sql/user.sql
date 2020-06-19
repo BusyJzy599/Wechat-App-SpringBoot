@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `user`
     `type`            int          not null default 0,
     `create_time`     timestamp    not null default CURRENT_TIMESTAMP,
     `last_login_time` timestamp    not null default CURRENT_TIMESTAMP,
-        PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
