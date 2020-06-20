@@ -7,14 +7,14 @@ CREATE TABLE IF NOT EXISTS `my_ware`
     `seller_id`   int       not null,
     `my_size`     int       not null,
     `my_all_size` int       not null comment '100:3x4,200:6x4,400:12x4',
-    `create_time` timestamp not null default CURRENT_TIMESTAMP,
-    `change_time` timestamp not null default CURRENT_TIMESTAMP
+    `create_time` timestamp not null,
+    `change_time` timestamp not null
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
 insert into my_ware (id, seller_id, my_size, my_all_size, create_time, change_time)
 values (1, 4, 60, 400, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (325, 4, 45, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+       (325, 4, 45, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 /**
   个人商品表
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS `my_goods`
     `goods_id`    INT       not null,
     `ware_id`     int       not null,
     `number`      int       not null comment '100:3x4,200:6x4,400:12x4',
-    `create_time` timestamp not null default CURRENT_TIMESTAMP,
-    `change_time` timestamp not null default CURRENT_TIMESTAMP
+    `create_time` timestamp not null ,
+    `change_time` timestamp not null
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 

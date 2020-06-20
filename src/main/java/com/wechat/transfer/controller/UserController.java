@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private OrderService orderService;
-    @Autowired
     private UserService userService;
 
     @RequestMapping("/seller")

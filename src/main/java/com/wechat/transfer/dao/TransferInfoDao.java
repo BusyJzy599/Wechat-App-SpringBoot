@@ -1,7 +1,6 @@
 package com.wechat.transfer.dao;
 
 import com.wechat.transfer.dao.lmpl.HiveJdbcDaoImpl;
-import com.wechat.transfer.entity.HdfsPath;
 import com.wechat.transfer.entity.WareHouse;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class TransferInfoDao extends HiveJdbcDaoImpl {

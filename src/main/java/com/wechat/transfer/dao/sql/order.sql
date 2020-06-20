@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS `orders`
     `ware`          int          not null,
     `status`        int          not null comment '0:商家,1:仓库,2:派送,3:签收',
     `curr_location` varchar(30)  null,
-    `create_time`   timestamp    not null default CURRENT_TIMESTAMP,
-    `change_time`   timestamp    not null default CURRENT_TIMESTAMP,
+    `create_time`   timestamp    not null ,
+    `change_time`   timestamp    not null ,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
