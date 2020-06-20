@@ -70,9 +70,6 @@ spring:
     cache:
       # 一般来说是不用配置的，Spring Cache 会根据依赖的包自行装配
       type: redis
-hdfs:
-  core-site: D:/MySoftware/Java/IdeaProjects/newCloud/src/main/resources/core-site.xml
-  hdfs-site: D:/MySoftware/Java/IdeaProjects/newCloud/src/main/resources/hdfs-site.xml
 logging:
   level:
     com.wechat.transfer: info
